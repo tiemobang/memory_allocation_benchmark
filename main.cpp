@@ -10,9 +10,9 @@ int main(int argc, char* argv[]) {
     
     int num_threads = 20;
     size_t size = 1024 * 1024 * 1024; // 1 GB
-    size_t page_size = 4096;
+    size_t page_size = 1;
     size_t num_reps_c1 = 1024;
-    size_t num_reps_c2 = 1024*1024;
+    size_t num_reps_c2 = 1024*1024*1024;
     
     int choice = -1;
     if (argc > 1) {

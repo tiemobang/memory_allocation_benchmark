@@ -1,4 +1,6 @@
 main
+perf.data
+perf.data.old
 
 # Prerequisites
 *.d

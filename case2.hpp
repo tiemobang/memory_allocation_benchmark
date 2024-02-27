@@ -18,7 +18,7 @@ namespace case2 {
         for(size_t rep = 0; rep < num_reps; ++rep){
 
             auto i = dis(gen);
-            a[i*page_size] = 0;
+            a[i*page_size] = i;
 
         }
 
@@ -27,11 +27,11 @@ namespace case2 {
 
     std::chrono::high_resolution_clock::duration case2_single(size_t page_size, size_t size, size_t num_reps) {
         // Allocate memory
-        volatile char* a = new char[size];
+        volatile char* a = (char*) malloc(size);
 
         auto duration = case2_inner(a, page_size, size, num_reps);
 
-        delete[] a;
+        free((void*)a);
 
         return duration;
     }
@@ -39,7 +39,7 @@ namespace case2 {
     std::chrono::high_resolution_clock::duration case2_parallel(size_t page_size, size_t size, size_t num_reps, size_t num_threads) {
         
         // Allocate memory
-        volatile char* a = new char[size];
+        volatile char* a = (char*) malloc(size);
 
         std::chrono::high_resolution_clock::duration duration = std::chrono::high_resolution_clock::duration::zero();    
     #pragma omp parallel num_threads(num_threads)
@@ -55,6 +55,8 @@ namespace case2 {
                 }
             }
         }
+
+        free((void*)a);
 
         return duration;
     }

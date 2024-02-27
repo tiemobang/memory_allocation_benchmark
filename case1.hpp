@@ -10,7 +10,7 @@ namespace case1 {
 
         for(size_t rep = 0; rep < num_reps; ++rep){
             // Allocate memory
-            volatile int* a = new int[size];
+            volatile int* a = (int*)malloc(size * sizeof(int));
 
             // Access the first element of each page
             size_t page_size = 4096;
@@ -19,7 +19,7 @@ namespace case1 {
                 a[i] = 0;
             }
 
-            delete[] a;
+            free((void*)a);
         }
 
         return std::chrono::high_resolution_clock::now() - start;
